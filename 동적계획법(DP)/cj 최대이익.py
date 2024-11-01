@@ -1,3 +1,7 @@
+## 문제
+# 창문을 닦아 최대 이익을 얻을 수 있는 경우를 구하기
+# costX와 costY는 오른쪽과 아래로 이동하는 데 드는 비용이고, costs 배열에는 각 칸을 닦을 때 얻을 수 있는 이익이 저장됨
+
 def max_profit(costs, costX, costY):
     rows, cols = len(costs), len(costs[0])
     earn = [[0] * cols for _ in range(rows)]
