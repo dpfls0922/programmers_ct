@@ -1,47 +1,56 @@
 ## 문제 설명
-계속되는 폭우로 일부 지역이 물에 잠겼습니다. 물에 잠기지 않은 지역을 통해 학교를 가려고 합니다. 집에서 학교까지 가는 길은 m x n 크기의 격자모양으로 나타낼 수 있습니다.
+아래와 같이 5와 사칙연산만으로 12를 표현할 수 있습니다.
 
-아래 그림은 m = 4, n = 3 인 경우입니다.
+12 = 5 + 5 + (5 / 5) + (5 / 5)
+12 = 55 / 5 + 5 / 5
+12 = (55 + 5) / 5
 
-![alt text](image.png)
-가장 왼쪽 위, 즉 집이 있는 곳의 좌표는 (1, 1)로 나타내고 가장 오른쪽 아래, 즉 학교가 있는 곳의 좌표는 (m, n)으로 나타냅니다.
-
-격자의 크기 m, n과 물이 잠긴 지역의 좌표를 담은 2차원 배열 puddles이 매개변수로 주어집니다. 오른쪽과 아래쪽으로만 움직여 집에서 학교까지 갈 수 있는 최단경로의 개수를 1,000,000,007로 나눈 나머지를 return 하도록 solution 함수를 작성해주세요.
+5를 사용한 횟수는 각각 6,5,4 입니다. 그리고 이중 가장 작은 경우는 4입니다.
+이처럼 숫자 N과 number가 주어질 때, N과 사칙연산만 사용해서 표현 할 수 있는 방법 중 N 사용횟수의 최솟값을 return 하도록 solution 함수를 작성하세요.
 
 ## 제한 사항
-- 격자의 크기 m, n은 1 이상 100 이하인 자연수입니다.
-- m과 n이 모두 1인 경우는 입력으로 주어지지 않습니다.
-- 물에 잠긴 지역은 0개 이상 10개 이하입니다.
-- 집과 학교가 물에 잠긴 경우는 입력으로 주어지지 않습니다.
+- N은 1 이상 9 이하입니다.
+- number는 1 이상 32,000 이하입니다.
+- 수식에는 괄호와 사칙연산만 가능하며 나누기 연산에서 나머지는 무시합니다.
+- 최솟값이 8보다 크면 -1을 return 합니다.
 
 ## 입출력 예
-|m|n|puddles|return|
-|---|---|---|---|
-|4|3|[[2, 2]]|4|
+|N|number|return|
+|---|---|---|
+|5|12|4|
+|2|11|3|
 
 ### 입출력 예 설명
-![alt text](image-1.png)
+예제 #1 <br>
+문제에 나온 예와 같습니다.
+
+예제 #2 <br>
+11 = 22 / 2와 같이 2를 3번만 사용하여 표현할 수 있습니다.
+
+※ 공지 - 2020년 9월 3일 테스트케이스가 추가되었습니다.
 
 ## solution.py
 ``` python
-def solution(m, n, puddles):
-    MOD = 1_000_000_007
+def solution(N, number):
     
-    dp = [[0] * m for i in range(n)]
-    puddle_set = set(tuple(puddle) for puddle in puddles)
+    dp = [set() for _ in range(9)]
+    for i in range(1, 9):
+        dp[i].add(int(str(N) * i))
     
-    dp[0][0] = 1
     
-    for i in range(n):
-        for j in range(m):
-            if (j + 1, i + 1) in puddle_set:
-                dp[i][j] = 0
-            else:
-                if i > 0:
-                    dp[i][j] += dp[i - 1][j]
-                if j > 0:
-                    dp[i][j] += dp[i][j - 1]
-            dp[i][j] %= MOD
+    for i in range(1, 9):
+        for j in range(1, i):
             
-    return dp[n - 1][m - 1]
+            for x in dp[j]:
+                for y in dp[i - j]:
+                    dp[i].add(x + y)
+                    dp[i].add(x - y)
+                    dp[i].add(x * y)
+                    if y != 0:
+                        dp[i].add(x // y)
+
+        if number in dp[i]:
+            return i
+    
+    return -1
 ```
