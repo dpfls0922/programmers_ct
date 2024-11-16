@@ -6,4 +6,4 @@ for i in range(n):
     order.insert(nums[i], i + 1)
 
 order.reverse()
-print(order)
+print(' '.join(map(str, order)))
