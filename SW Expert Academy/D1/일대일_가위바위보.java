@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class 일대일_가위바이보 {
+public class 일대일_가위바위보 {
 	public static void main(String[] args) throws NumberFormatException, IOException {
 		final int SCISSORS = 1;
 		final int ROCK = 2;
