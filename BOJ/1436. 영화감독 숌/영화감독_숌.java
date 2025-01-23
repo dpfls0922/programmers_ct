@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class 영화감독숌 {
+public class 영화감독_숌 {
 	private static String END_NUMBER = "666";
 	
 	public static void main(String[] args) throws NumberFormatException, IOException {
