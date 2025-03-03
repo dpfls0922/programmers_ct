@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class 비슷한_단어 {
     private static int N;
     private static HashMap<String, Integer> wordString = new HashMap<>();
     private static HashMap<Integer, String> wordIndex = new HashMap<>();
