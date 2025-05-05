@@ -76,7 +76,7 @@ class Solution {
             edges[start].remove(Integer.valueOf(end));
             edges[end].remove(Integer.valueOf(start));
             
-            int cnt1 = bfs(start);
+            int cnt1 = bfs(start);  // start 또는 end가 와도 상관 없음
             int cnt2 = N - cnt1;
             min = Math.min(min, Math.abs(cnt1 - cnt2));
             
